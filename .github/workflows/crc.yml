@@ -1,0 +1,31 @@
+name: CRC
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:  
+  start:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup CRC
+      env:
+        PULL_SECRET: ${{ secrets.PULL_SECRET }}
+      run: |
+        echo "I've no expectations that this will ever ever work..."
+        
+        curl -L https://mirror.openshift.com/pub/openshift-v4/clients/crc/1.7.0/crc-linux-amd64.tar.xz -o crc-linux-amd64.tar.xz
+        tar xf crc-linux-amd64.tar.xz
+        rm crc-linux-amd64.tar.xz
+        
+        cd crc-linux-1.7.0-amd64/
+        
+        ./crc setup
+        echo $PULL_SECRET > pull.secret
+        ./crc start -p pull.secret
+        
