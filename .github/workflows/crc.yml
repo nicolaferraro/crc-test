@@ -17,17 +17,17 @@ jobs:
       env:
         PULL_SECRET: ${{ secrets.PULL_SECRET }}
       run: |
-        echo "I've no expectations that this will ever ever work..."
+        #echo "I've no expectations that this will ever ever work..."
         
-        curl -L https://mirror.openshift.com/pub/openshift-v4/clients/crc/1.7.0/crc-linux-amd64.tar.xz -o crc-linux-amd64.tar.xz
-        tar xf crc-linux-amd64.tar.xz
-        rm crc-linux-amd64.tar.xz
+        #curl -L https://mirror.openshift.com/pub/openshift-v4/clients/crc/1.7.0/crc-linux-amd64.tar.xz -o crc-linux-amd64.tar.xz
+        #tar xf crc-linux-amd64.tar.xz
+        #rm crc-linux-amd64.tar.xz
         
-        cd crc-linux-1.7.0-amd64/
+        #cd crc-linux-1.7.0-amd64/
         
-        ./crc setup
-        echo $PULL_SECRET > pull.secret
-        ./crc start -p pull.secret
+        #./crc setup
+        #echo $PULL_SECRET > pull.secret
+        #./crc start -p pull.secret
  
   oc3:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
 
     - name: Setup OC
       run: |
-       export OPENSHIFT_VERSION=v3.11.0
+        export OPENSHIFT_VERSION=v3.11.0
         export OPENSHIFT_COMMIT=0cbc58b
         export MAVEN_OPTS=-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 
@@ -73,7 +73,7 @@ jobs:
         cd /home/runner/lib/oc
 
         # Start OpenShift
-        oc cluster up --public-hostname=$IP_ADDR --enable=[-sample-templates,-web-console,-centos-imagestreams]
+        oc cluster up --public-hostname=$IP_ADDR --enable=persistent-volumes,registry,router
         oc login -u system:admin
 
         # Wait until we have a ready node in openshift
