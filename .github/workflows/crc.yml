@@ -73,7 +73,7 @@ jobs:
         cd /home/runner/lib/oc
 
         # Start OpenShift
-        oc cluster up --public-hostname=$IP_ADDR
+        oc cluster up --public-hostname=$IP_ADDR --enable=[-sample-templates,-web-console]
         oc login -u system:admin
 
         # Wait until we have a ready node in openshift
