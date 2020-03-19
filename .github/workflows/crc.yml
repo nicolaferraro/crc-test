@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Info
+      run: |
+        df -h
     - uses: actions/checkout@v2
 
     - name: Setup CRC
